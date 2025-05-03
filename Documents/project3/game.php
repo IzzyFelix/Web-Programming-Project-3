@@ -1,9 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'player') {
+session_start();
+if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['player', 'admin'])) {
     header("Location: login.php");
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +62,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'player') {
 
         .side-panel button {
             width: 100%;
-            min-width: 160px;
+            min-width: 200px;
             padding: 12px 20px;
             font-size: 16px;
             border: none;
@@ -119,7 +121,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'player') {
 
 
 <div class="btn-container">
-            <button class="logout-btn" onclick="endGameAndRedirect('player_dashboard.php')">Return to Dashboard</button>
+            <button class="logout-btn" onclick="endGameAndRedirect()">Return to Dashboard</button>
             <button class="logout-btn" onclick="endGameAndRedirect('logout.php')">Logout</button>
         </div>
     </div>
@@ -127,6 +129,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'player') {
 
 <script>
 let cycleCount = 0;
+const userRole = "<?php echo $_SESSION['role']; ?>";
 
 // Initialize grid and store cell states (alive/dead)
 const grid = document.getElementById('grid');
@@ -233,10 +236,14 @@ fetch('start_game_session.php')
 
 
 // Stop game timer and redirect
-function endGameAndRedirect(targetPage) {
+function endGameAndRedirect() {
     fetch('end_game_session.php')
         .then(() => {
-            window.location.href = targetPage;
+             if (userRole === 'admin') {
+        window.location.href = 'admin_dashboard.php';
+    } else {
+        window.location.href = 'player_dashboard.php';
+    }
         });
 }
 

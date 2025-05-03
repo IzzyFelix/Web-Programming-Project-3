@@ -115,6 +115,25 @@ while ($row = mysqli_fetch_assoc($result)) {
             margin-top: 30px;
         }
 
+
+        .start-btn {
+            margin-top: 30px;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+	margin-bottom: 15px;
+        }
+
+        .start-btn:hover {
+            background-color: #45a049;
+        }
+
+
         .logout-btn {
             background-color: #f44336;
             color: white;
@@ -123,6 +142,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             border: none;
             border-radius: 6px;
             cursor: pointer;
+	margin-bottom: 15px;
+	min-width: 200px;
         }
 
         .logout-btn:hover {
@@ -137,6 +158,13 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 <div class="dashboard-container">
     <div class="side-panel">
+
+<div class ="box" style="text-align: center;">
+  <a href="game.php" class="start-btn">Start Game</a>
+
+<a href="logout.php" class="logout-btn">Logout</a>
+</div>
+
 
        <!-- Suspend/Unsuspend User Dropdown -->
 <div class="box">
@@ -188,7 +216,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     </div>
 </div>
 
-<a href="logout.php" class="logout-btn">Logout</a>
+
 
 <script>
 // PHP data to JS
